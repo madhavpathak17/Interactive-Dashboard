@@ -143,21 +143,21 @@ Frank Garcia,Mechanical,7.9,Mahindra,82000,Placed,Male,2024`;
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="border-b border-border bg-card/50">
-        <div className="container mx-auto px-6 py-8">
-          <div className="flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
             <div>
-              <h1 className="text-3xl font-bold text-foreground">Student Placement Dashboard</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Student Placement Dashboard</h1>
               <p className="text-muted-foreground mt-2">
                 Interactive analytics and AI insights for placement records
               </p>
             </div>
-            <div className="flex items-center space-x-4">
-              <Button variant="outline" onClick={downloadSampleCSV}>
+            <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+              <Button variant="outline" onClick={downloadSampleCSV} className="w-full sm:w-auto">
                 <Download className="h-4 w-4 mr-2" />
                 Sample CSV
               </Button>
               {placementData.length > 0 && (
-                <div className="text-sm text-muted-foreground">
+                <div className="text-sm text-muted-foreground text-center sm:text-left">
                   {uploadedFile?.name} • {placementData.length} records
                 </div>
               )}
