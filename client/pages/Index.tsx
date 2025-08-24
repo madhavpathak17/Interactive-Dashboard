@@ -210,11 +210,11 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                 <Card>
                   <CardHeader>
                     <BarChart3 className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-lg">Interactive Charts</CardTitle>
+                    <CardTitle className="text-lg">Academic Visualization</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Visualize placement trends, department performance, and salary distributions with interactive charts.
+                      Visualize CGPA distributions, academic performance trends, and internship impact on placement success.
                     </p>
                   </CardContent>
                 </Card>
@@ -226,7 +226,7 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Get intelligent recommendations and predictions to improve placement strategies and outcomes.
+                      Get data-driven recommendations to improve student outcomes based on academic performance patterns.
                     </p>
                   </CardContent>
                 </Card>
@@ -234,11 +234,11 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                 <Card>
                   <CardHeader>
                     <Users className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-lg">Advanced Analytics</CardTitle>
+                    <CardTitle className="text-lg">Performance Analytics</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Analyze student performance patterns, company preferences, and placement success factors.
+                      Analyze correlations between CGPA, skills, projects, internships and successful placements.
                     </p>
                   </CardContent>
                 </Card>
