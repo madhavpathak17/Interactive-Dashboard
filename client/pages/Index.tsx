@@ -113,27 +113,37 @@ Frank Garcia,Mechanical,7.9,Mahindra,82000,Placed,Male,2024`;
   // Determine chart data keys based on available data
   const getChartConfig = () => {
     if (!placementData.length) return null;
-    
+
     const firstRow = placementData[0];
     const keys = Object.keys(firstRow);
-    
-    // Try to find department/branch field
-    const departmentKey = keys.find(key => 
-      key.toLowerCase().includes('department') || 
-      key.toLowerCase().includes('branch') || 
-      key.toLowerCase().includes('course')
-    ) || keys[1]; // Fallback to second column
-    
-    // Try to find company field
-    const companyKey = keys.find(key =>
-      key.toLowerCase().includes('company') ||
-      key.toLowerCase().includes('employer') ||
-      key.toLowerCase().includes('organization')
-    ) || keys[0]; // Fallback to first column
+
+    // For academic performance analysis
+    const cgpaKey = keys.find(key =>
+      key.toLowerCase().includes('cgpa') ||
+      key.toLowerCase().includes('gpa')
+    ) || 'CGPA';
+
+    // For placement status
+    const placementKey = keys.find(key =>
+      key.toLowerCase().includes('placement') ||
+      key.toLowerCase().includes('placed')
+    ) || 'Placement';
+
+    // For internship experience
+    const internshipKey = keys.find(key =>
+      key.toLowerCase().includes('internship')
+    ) || 'Internship Experience';
+
+    // For academic performance grouping
+    const academicPerfKey = keys.find(key =>
+      key.toLowerCase().includes('academic') && key.toLowerCase().includes('performance')
+    ) || 'Academic Performance';
 
     return {
-      departmentKey,
-      companyKey
+      cgpaKey,
+      placementKey,
+      internshipKey,
+      academicPerfKey
     };
   };
 
