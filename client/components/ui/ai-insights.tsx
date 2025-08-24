@@ -28,102 +28,145 @@ export function AIInsights({ data, className }: AIInsightsProps) {
 
     setIsGenerating(true);
 
-    // Simulate AI analysis with realistic insights based on common placement data patterns
+    // Simulate AI analysis with realistic insights based on academic placement data patterns
     setTimeout(() => {
       const newInsights: Insight[] = [];
 
-      // Analyze placement rates by department/course
-      const departments = new Set(data.map(record => record.Department || record.Course || record.Branch));
-      if (departments.size > 1) {
+      // Analyze CGPA correlation with placement
+      const cgpaField = data.find(record =>
+        Object.keys(record).some(key =>
+          key.toLowerCase().includes('cgpa') ||
+          key.toLowerCase().includes('gpa')
+        )
+      );
+
+      if (cgpaField) {
+        const placedStudents = data.filter(record => {
+          const placement = record.Placement || record.Placed;
+          return placement && (placement.toString().toLowerCase() === 'placed' || placement.toString() === '1');
+        });
+
+        const avgCGPA = placedStudents.reduce((sum, record) => {
+          const cgpa = parseFloat(record.CGPA || record.cgpa || '0');
+          return sum + cgpa;
+        }, 0) / placedStudents.length;
+
         newInsights.push({
           id: '1',
           type: 'trend',
-          title: 'Department Performance Variance',
-          description: `${departments.size} departments show significantly different placement rates. CS/IT departments typically achieve 15-20% higher placement rates.`,
+          title: 'CGPA Impact on Placement Success',
+          description: `Students with CGPA above ${avgCGPA.toFixed(1)} show significantly higher placement rates. Academic performance remains the strongest predictor of placement success.`,
+          confidence: 0.92,
+          impact: 'high'
+        });
+      }
+
+      // Analyze internship experience correlation
+      const internshipField = data.find(record =>
+        Object.keys(record).some(key => key.toLowerCase().includes('internship'))
+      );
+
+      if (internshipField) {
+        const withInternship = data.filter(record => {
+          const internship = record['Internship Experience'] || record.Internship;
+          return internship && (internship.toString().toLowerCase() === 'yes' || parseFloat(internship.toString()) > 0);
+        });
+
+        const internshipPlacementRate = withInternship.filter(record => {
+          const placement = record.Placement || record.Placed;
+          return placement && (placement.toString().toLowerCase() === 'placed' || placement.toString() === '1');
+        }).length / withInternship.length * 100;
+
+        newInsights.push({
+          id: '2',
+          type: 'recommendation',
+          title: 'Internship Experience Advantage',
+          description: `Students with internship experience show ${internshipPlacementRate.toFixed(0)}% placement rate. Encourage more students to pursue internships for better outcomes.`,
           confidence: 0.85,
           impact: 'high'
         });
       }
 
-      // Analyze salary trends
-      const salaryField = data.find(record => 
-        Object.keys(record).some(key => 
-          key.toLowerCase().includes('salary') || 
-          key.toLowerCase().includes('package') ||
-          key.toLowerCase().includes('ctc')
-        )
+      // Academic performance distribution analysis
+      const academicPerfField = data.find(record =>
+        Object.keys(record).some(key => key.toLowerCase().includes('academic') && key.toLowerCase().includes('performance'))
       );
-      
-      if (salaryField) {
-        newInsights.push({
-          id: '2',
-          type: 'prediction',
-          title: 'Salary Growth Trajectory',
-          description: 'Based on current trends, average placement packages are expected to increase by 12-15% next year, particularly in tech roles.',
-          confidence: 0.78,
-          impact: 'high'
-        });
-      }
 
-      // Analyze gender distribution
-      const genderField = data.find(record =>
-        Object.keys(record).some(key => key.toLowerCase().includes('gender'))
-      );
-      
-      if (genderField) {
+      if (academicPerfField) {
+        const perfLevels = new Set(data.map(record => record['Academic Performance']).filter(Boolean));
         newInsights.push({
           id: '3',
-          type: 'recommendation',
-          title: 'Diversity Enhancement Opportunity',
-          description: 'Implementing targeted mentorship programs could improve placement rates for underrepresented groups by 8-12%.',
-          confidence: 0.72,
-          impact: 'medium'
-        });
-      }
-
-      // Analyze company types
-      const companies = data.map(record => record.Company || record.Employer).filter(Boolean);
-      if (companies.length > 0) {
-        const uniqueCompanies = new Set(companies);
-        newInsights.push({
-          id: '4',
           type: 'trend',
-          title: 'Industry Preference Shift',
-          description: `${uniqueCompanies.size} unique companies recruited. Tech startups show 25% increase in hiring compared to traditional corporations.`,
+          title: 'Academic Performance Distribution',
+          description: `${perfLevels.size} performance levels identified. Students in higher performance categories show 15-25% better placement outcomes.`,
           confidence: 0.80,
           impact: 'medium'
         });
       }
 
-      // Academic performance correlation
-      const cgpaField = data.find(record =>
-        Object.keys(record).some(key => 
-          key.toLowerCase().includes('cgpa') || 
-          key.toLowerCase().includes('gpa') ||
-          key.toLowerCase().includes('grade')
-        )
+      // Communication skills impact
+      const commSkillsField = data.find(record =>
+        Object.keys(record).some(key => key.toLowerCase().includes('communication'))
       );
-      
-      if (cgpaField) {
+
+      if (commSkillsField) {
         newInsights.push({
-          id: '5',
-          type: 'anomaly',
-          title: 'Academic Performance Correlation',
-          description: 'Students with CGPA 7.5-8.5 show highest placement success rate (78%), surpassing those with higher grades.',
-          confidence: 0.88,
+          id: '4',
+          type: 'recommendation',
+          title: 'Communication Skills Development',
+          description: 'Strong communication skills correlate with 30% higher placement success. Consider implementing soft skills training programs.',
+          confidence: 0.78,
           impact: 'high'
         });
       }
 
-      // Skills gap analysis
-      newInsights.push({
-        id: '6',
-        type: 'recommendation',
-        title: 'Skills Development Priority',
-        description: 'Cloud computing and data analytics skills show 40% higher demand. Consider adding specialized certification programs.',
-        confidence: 0.75,
-        impact: 'high'
-      });
+      // Project completion correlation
+      const projectsField = data.find(record =>
+        Object.keys(record).some(key => key.toLowerCase().includes('project'))
+      );
+
+      if (projectsField) {
+        newInsights.push({
+          id: '5',
+          type: 'prediction',
+          title: 'Project Portfolio Impact',
+          description: 'Students with 3+ completed projects show 40% higher placement probability. Practical experience significantly enhances employability.',
+          confidence: 0.83,
+          impact: 'high'
+        });
+      }
+
+      // IQ and placement correlation
+      const iqField = data.find(record =>
+        Object.keys(record).some(key => key.toLowerCase().includes('iq'))
+      );
+
+      if (iqField) {
+        newInsights.push({
+          id: '6',
+          type: 'anomaly',
+          title: 'Holistic Assessment Insight',
+          description: 'While IQ scores matter, students with balanced profiles (academics + skills + experience) outperform high-IQ students with limited practical exposure.',
+          confidence: 0.75,
+          impact: 'medium'
+        });
+      }
+
+      // Extra-curricular activities
+      const extraCurricularField = data.find(record =>
+        Object.keys(record).some(key => key.toLowerCase().includes('extra') || key.toLowerCase().includes('curricular'))
+      );
+
+      if (extraCurricularField) {
+        newInsights.push({
+          id: '7',
+          type: 'recommendation',
+          title: 'Well-Rounded Development',
+          description: 'Students with higher extra-curricular scores demonstrate better leadership and teamwork skills, leading to 20% better placement outcomes.',
+          confidence: 0.70,
+          impact: 'medium'
+        });
+      }
 
       setInsights(newInsights);
       setIsGenerating(false);
