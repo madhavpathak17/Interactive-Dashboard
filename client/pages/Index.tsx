@@ -91,21 +91,21 @@ export default function Index() {
   }, [placementData]);
 
   const downloadSampleCSV = () => {
-    const sampleData = `Name,Department,CGPA,Company,Salary,Status,Gender,Year
-John Doe,Computer Science,8.5,Google,120000,Placed,Male,2024
-Jane Smith,Information Technology,9.2,Microsoft,115000,Placed,Female,2024
-Bob Johnson,Mechanical,7.8,Tata Motors,80000,Placed,Male,2024
-Alice Brown,Computer Science,8.9,Amazon,125000,Placed,Female,2024
-Charlie Wilson,Electrical,7.5,,0,Not Placed,Male,2024
-Diana Miller,Computer Science,9.0,Meta,130000,Placed,Female,2024
-Eve Davis,Civil,8.1,L&T,75000,Placed,Female,2024
-Frank Garcia,Mechanical,7.9,Mahindra,82000,Placed,Male,2024`;
+    const sampleData = `College ID,IQ,Prev Sem Result,CGPA,Academic Performance,Internship Experience,Extra Curricular Score,Communication Skills,Projects Completed,Placement
+STU001,115,A,8.5,Excellent,Yes,85,Good,3,Placed
+STU002,108,B+,7.8,Good,No,70,Average,2,Not Placed
+STU003,122,A+,9.2,Excellent,Yes,90,Excellent,4,Placed
+STU004,95,B,7.2,Average,No,60,Poor,1,Not Placed
+STU005,118,A,8.9,Excellent,Yes,80,Good,3,Placed
+STU006,102,B,7.5,Good,Yes,75,Average,2,Placed
+STU007,130,A+,9.5,Excellent,Yes,95,Excellent,5,Placed
+STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
 
     const blob = new Blob([sampleData], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'sample_student_placement_data.csv';
+    a.download = 'sample_academic_placement_data.csv';
     a.click();
     window.URL.revokeObjectURL(url);
   };
