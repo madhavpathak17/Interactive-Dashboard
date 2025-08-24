@@ -24,6 +24,7 @@ import {
 export default function Index() {
   const [placementData, setPlacementData] = useState<Record<string, any>[]>([]);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const { user, signOut } = useAuth();
 
   const handleFileUpload = (file: File, data: any[]) => {
     setUploadedFile(file);
