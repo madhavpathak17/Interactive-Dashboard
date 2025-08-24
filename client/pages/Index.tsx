@@ -156,9 +156,9 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
         <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Student Placement Dashboard</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Academic Placement Analytics</h1>
               <p className="text-muted-foreground mt-2">
-                Interactive analytics and AI insights for placement records
+                CGPA, Skills & Performance Analysis for Student Placement Success
               </p>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
