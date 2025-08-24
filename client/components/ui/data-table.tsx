@@ -145,11 +145,11 @@ export function DataTable({
         </div>
         
         {totalPages > 1 && (
-          <div className="flex items-center justify-between mt-6">
-            <div className="text-sm text-muted-foreground">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-6 space-y-4 sm:space-y-0">
+            <div className="text-sm text-muted-foreground text-center sm:text-left">
               Showing {startIndex + 1} to {Math.min(startIndex + pageSize, filteredData.length)} of {filteredData.length} records
             </div>
-            <div className="flex space-x-2">
+            <div className="flex justify-center space-x-2">
               <Button
                 variant="outline"
                 size="sm"
