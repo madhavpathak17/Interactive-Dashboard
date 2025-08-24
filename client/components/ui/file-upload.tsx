@@ -97,16 +97,16 @@ export function FileUpload({ onFileUpload, accept = ".csv", className }: FileUpl
         ) : (
           <div
             className={cn(
-              "border-2 border-dashed border-border rounded-lg p-8 text-center transition-colors",
+              "border-2 border-dashed border-border rounded-lg p-4 sm:p-8 text-center transition-colors",
               isDragging && "border-primary bg-primary/5"
             )}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
           >
-            <Upload className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-medium mb-2">Upload CSV File</h3>
-            <p className="text-muted-foreground mb-4">
+            <Upload className="h-8 w-8 sm:h-12 sm:w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-base sm:text-lg font-medium mb-2">Upload CSV File</h3>
+            <p className="text-sm sm:text-base text-muted-foreground mb-4 px-2">
               Drag and drop your student placement data CSV file here, or click to browse
             </p>
             <input
