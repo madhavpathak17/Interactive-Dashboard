@@ -6,16 +6,19 @@ import { FileUpload } from "@/components/ui/file-upload";
 import { DataTable } from "@/components/ui/data-table";
 import { AIInsights } from "@/components/ui/ai-insights";
 import { DashboardChart } from "@/components/ui/dashboard-chart";
-import { 
-  Users, 
-  TrendingUp, 
-  Award, 
-  Building, 
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  Users,
+  TrendingUp,
+  Award,
+  Building,
   GraduationCap,
   BarChart3,
   Upload,
   Download,
-  Brain
+  Brain,
+  LogOut,
+  User
 } from "lucide-react";
 
 export default function Index() {
