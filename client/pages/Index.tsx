@@ -166,7 +166,7 @@ Frank Garcia,Mechanical,7.9,Mahindra,82000,Placed,Male,2024`;
         </div>
       </div>
 
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {placementData.length === 0 ? (
           /* Upload Section */
           <div className="space-y-8">
