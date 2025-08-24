@@ -175,6 +175,23 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                   {uploadedFile?.name} • {placementData.length} records
                 </div>
               )}
+
+              {/* User Info & Sign Out */}
+              <div className="flex items-center space-x-4 pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l border-border sm:pl-4">
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                    <User className="h-4 w-4 text-primary" />
+                  </div>
+                  <div className="hidden sm:block">
+                    <p className="text-sm font-medium">{user?.name}</p>
+                    <p className="text-xs text-muted-foreground">{user?.email}</p>
+                  </div>
+                </div>
+                <Button variant="ghost" size="sm" onClick={signOut} className="text-muted-foreground hover:text-destructive">
+                  <LogOut className="h-4 w-4" />
+                  <span className="ml-2 hidden sm:inline">Sign Out</span>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
