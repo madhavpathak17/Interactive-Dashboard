@@ -292,8 +292,8 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
               />
             </div>
 
-            {/* Charts and Insights Row */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Charts Row */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {chartConfig && (
                 <>
                   <DashboardChart
@@ -309,6 +309,13 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                     title="Students with Internship Experience"
                     dataKey="value"
                     nameKey={chartConfig.internshipKey}
+                  />
+                  <DashboardChart
+                    data={placementData}
+                    type="bar"
+                    title="Placement Status Distribution"
+                    dataKey="value"
+                    nameKey={chartConfig.placementKey}
                   />
                 </>
               )}
