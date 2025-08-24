@@ -192,11 +192,11 @@ Frank Garcia,Mechanical,7.9,Mahindra,82000,Placed,Male,2024`;
             </div>
 
             {/* Features Preview */}
-            <div className="max-w-4xl mx-auto mt-12">
-              <h3 className="text-xl font-semibold text-center mb-8">
+            <div className="max-w-4xl mx-auto mt-8 sm:mt-12">
+              <h3 className="text-lg sm:text-xl font-semibold text-center mb-6 sm:mb-8">
                 What You'll Get
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <Card>
                   <CardHeader>
                     <BarChart3 className="h-8 w-8 text-primary mb-2" />
