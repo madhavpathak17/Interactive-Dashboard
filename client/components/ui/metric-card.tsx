@@ -29,9 +29,7 @@ export function MetricCard({
         <CardTitle className="text-sm font-medium text-muted-foreground">
           {title}
         </CardTitle>
-        {Icon && (
-          <Icon className="h-4 w-4 text-muted-foreground" />
-        )}
+        {Icon && <Icon className="h-4 w-4 text-muted-foreground" />}
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
@@ -43,10 +41,11 @@ export function MetricCard({
             <span
               className={cn(
                 "font-medium",
-                trend.isPositive ? "text-success" : "text-destructive"
+                trend.isPositive ? "text-success" : "text-destructive",
               )}
             >
-              {trend.isPositive ? "+" : ""}{trend.value}%
+              {trend.isPositive ? "+" : ""}
+              {trend.value}%
             </span>
             <span className="text-muted-foreground">{trend.label}</span>
           </div>

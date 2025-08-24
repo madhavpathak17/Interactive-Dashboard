@@ -33,10 +33,7 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/dashboard"
-              element={<Navigate to="/" replace />}
-            />
+            <Route path="/dashboard" element={<Navigate to="/" replace />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

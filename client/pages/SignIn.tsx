@@ -1,41 +1,41 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useAuth } from '@/contexts/AuthContext';
-import { Eye, EyeOff, Mail, Lock, BarChart3 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useAuth } from "@/contexts/AuthContext";
+import { Eye, EyeOff, Mail, Lock, BarChart3 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  
+  const [error, setError] = useState("");
+
   const { signIn } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setIsLoading(true);
 
     if (!email || !password) {
-      setError('Please fill in all fields');
+      setError("Please fill in all fields");
       setIsLoading(false);
       return;
     }
 
     const success = await signIn(email, password);
-    
+
     if (success) {
-      navigate('/');
+      navigate("/");
     } else {
-      setError('Invalid email or password');
+      setError("Invalid email or password");
     }
-    
+
     setIsLoading(false);
   };
 
@@ -69,7 +69,10 @@ export default function SignIn() {
               )}
 
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-foreground">
+                <label
+                  htmlFor="email"
+                  className="text-sm font-medium text-foreground"
+                >
                   Email
                 </label>
                 <div className="relative">
@@ -87,14 +90,17 @@ export default function SignIn() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium text-foreground">
+                <label
+                  htmlFor="password"
+                  className="text-sm font-medium text-foreground"
+                >
                   Password
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="password"
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -115,18 +121,14 @@ export default function SignIn() {
                 </div>
               </div>
 
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? (
                   <div className="flex items-center space-x-2">
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground"></div>
                     <span>Signing in...</span>
                   </div>
                 ) : (
-                  'Sign In'
+                  "Sign In"
                 )}
               </Button>
             </form>
@@ -141,9 +143,9 @@ export default function SignIn() {
             {/* Sign Up Link */}
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
-                Don't have an account?{' '}
-                <Link 
-                  to="/signup" 
+                Don't have an account?{" "}
+                <Link
+                  to="/signup"
                   className="text-primary hover:text-primary/80 font-medium"
                 >
                   Sign up

@@ -18,7 +18,7 @@ import {
   Download,
   Brain,
   LogOut,
-  User
+  User,
 } from "lucide-react";
 
 export default function Index() {
@@ -40,29 +40,31 @@ export default function Index() {
         placementRate: 0,
         averageCGPA: 0,
         withInternship: 0,
-        internshipRate: 0
+        internshipRate: 0,
       };
     }
 
     const totalStudents = placementData.length;
 
     // Find placed students - check for Placement column
-    const placedStudents = placementData.filter(student => {
+    const placedStudents = placementData.filter((student) => {
       const placement = student.Placement || student.Placed || student.Status;
-      return placement && (
-        placement.toString().toLowerCase() === 'placed' ||
-        placement.toString().toLowerCase() === 'yes' ||
-        placement.toString() === '1'
+      return (
+        placement &&
+        (placement.toString().toLowerCase() === "placed" ||
+          placement.toString().toLowerCase() === "yes" ||
+          placement.toString() === "1")
       );
     }).length;
 
-    const placementRate = totalStudents > 0 ? (placedStudents / totalStudents) * 100 : 0;
+    const placementRate =
+      totalStudents > 0 ? (placedStudents / totalStudents) * 100 : 0;
 
     // Calculate average CGPA
     let totalCGPA = 0;
     let cgpaCount = 0;
 
-    placementData.forEach(student => {
+    placementData.forEach((student) => {
       const cgpa = student.CGPA || student.cgpa;
       if (cgpa && !isNaN(parseFloat(cgpa.toString()))) {
         totalCGPA += parseFloat(cgpa.toString());
@@ -73,16 +75,21 @@ export default function Index() {
     const averageCGPA = cgpaCount > 0 ? totalCGPA / cgpaCount : 0;
 
     // Count students with internship experience
-    const withInternship = placementData.filter(student => {
-      const internship = student['Internship Experience'] || student.Internship || student.internship;
-      return internship && (
-        internship.toString().toLowerCase() === 'yes' ||
-        internship.toString() === '1' ||
-        parseFloat(internship.toString()) > 0
+    const withInternship = placementData.filter((student) => {
+      const internship =
+        student["Internship Experience"] ||
+        student.Internship ||
+        student.internship;
+      return (
+        internship &&
+        (internship.toString().toLowerCase() === "yes" ||
+          internship.toString() === "1" ||
+          parseFloat(internship.toString()) > 0)
       );
     }).length;
 
-    const internshipRate = totalStudents > 0 ? (withInternship / totalStudents) * 100 : 0;
+    const internshipRate =
+      totalStudents > 0 ? (withInternship / totalStudents) * 100 : 0;
 
     return {
       totalStudents,
@@ -90,7 +97,7 @@ export default function Index() {
       placementRate,
       averageCGPA,
       withInternship,
-      internshipRate
+      internshipRate,
     };
   }, [placementData]);
 
@@ -105,11 +112,11 @@ STU006,102,B,7.5,Good,Yes,75,Average,2,Placed
 STU007,130,A+,9.5,Excellent,Yes,95,Excellent,5,Placed
 STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
 
-    const blob = new Blob([sampleData], { type: 'text/csv' });
+    const blob = new Blob([sampleData], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'sample_academic_placement_data.csv';
+    a.download = "sample_academic_placement_data.csv";
     a.click();
     window.URL.revokeObjectURL(url);
   };
@@ -122,32 +129,39 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
     const keys = Object.keys(firstRow);
 
     // For academic performance analysis
-    const cgpaKey = keys.find(key =>
-      key.toLowerCase().includes('cgpa') ||
-      key.toLowerCase().includes('gpa')
-    ) || 'CGPA';
+    const cgpaKey =
+      keys.find(
+        (key) =>
+          key.toLowerCase().includes("cgpa") ||
+          key.toLowerCase().includes("gpa"),
+      ) || "CGPA";
 
     // For placement status
-    const placementKey = keys.find(key =>
-      key.toLowerCase().includes('placement') ||
-      key.toLowerCase().includes('placed')
-    ) || 'Placement';
+    const placementKey =
+      keys.find(
+        (key) =>
+          key.toLowerCase().includes("placement") ||
+          key.toLowerCase().includes("placed"),
+      ) || "Placement";
 
     // For internship experience
-    const internshipKey = keys.find(key =>
-      key.toLowerCase().includes('internship')
-    ) || 'Internship Experience';
+    const internshipKey =
+      keys.find((key) => key.toLowerCase().includes("internship")) ||
+      "Internship Experience";
 
     // For academic performance grouping
-    const academicPerfKey = keys.find(key =>
-      key.toLowerCase().includes('academic') && key.toLowerCase().includes('performance')
-    ) || 'Academic Performance';
+    const academicPerfKey =
+      keys.find(
+        (key) =>
+          key.toLowerCase().includes("academic") &&
+          key.toLowerCase().includes("performance"),
+      ) || "Academic Performance";
 
     return {
       cgpaKey,
       placementKey,
       internshipKey,
-      academicPerfKey
+      academicPerfKey,
     };
   };
 
@@ -160,13 +174,20 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
         <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Academic Placement Analytics</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
+                Academic Placement Analytics
+              </h1>
               <p className="text-muted-foreground mt-2">
-                CGPA, Skills & Performance Analysis for Student Placement Success
+                CGPA, Skills & Performance Analysis for Student Placement
+                Success
               </p>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-              <Button variant="outline" onClick={downloadSampleCSV} className="w-full sm:w-auto">
+              <Button
+                variant="outline"
+                onClick={downloadSampleCSV}
+                className="w-full sm:w-auto"
+              >
                 <Download className="h-4 w-4 mr-2" />
                 Sample CSV
               </Button>
@@ -184,10 +205,17 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                   </div>
                   <div className="hidden sm:block">
                     <p className="text-sm font-medium">{user?.name}</p>
-                    <p className="text-xs text-muted-foreground">{user?.email}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {user?.email}
+                    </p>
                   </div>
                 </div>
-                <Button variant="ghost" size="sm" onClick={signOut} className="text-muted-foreground hover:text-destructive">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={signOut}
+                  className="text-muted-foreground hover:text-destructive"
+                >
                   <LogOut className="h-4 w-4" />
                   <span className="ml-2 hidden sm:inline">Sign Out</span>
                 </Button>
@@ -212,8 +240,9 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                   Academic Placement Analytics Dashboard
                 </h2>
                 <p className="text-muted-foreground mb-8">
-                  Analyze student academic performance, CGPA trends, internship impact, and placement outcomes
-                  with AI-powered insights to enhance educational strategies and career guidance.
+                  Analyze student academic performance, CGPA trends, internship
+                  impact, and placement outcomes with AI-powered insights to
+                  enhance educational strategies and career guidance.
                 </p>
               </div>
             </div>
@@ -231,11 +260,14 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                 <Card>
                   <CardHeader>
                     <BarChart3 className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-lg">Academic Visualization</CardTitle>
+                    <CardTitle className="text-lg">
+                      Academic Visualization
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Visualize CGPA distributions, academic performance trends, and internship impact on placement success.
+                      Visualize CGPA distributions, academic performance trends,
+                      and internship impact on placement success.
                     </p>
                   </CardContent>
                 </Card>
@@ -247,7 +279,8 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Get data-driven recommendations to improve student outcomes based on academic performance patterns.
+                      Get data-driven recommendations to improve student
+                      outcomes based on academic performance patterns.
                     </p>
                   </CardContent>
                 </Card>
@@ -255,11 +288,14 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                 <Card>
                   <CardHeader>
                     <Users className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-lg">Performance Analytics</CardTitle>
+                    <CardTitle className="text-lg">
+                      Performance Analytics
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Analyze correlations between CGPA, skills, projects, internships and successful placements.
+                      Analyze correlations between CGPA, skills, projects,
+                      internships and successful placements.
                     </p>
                   </CardContent>
                 </Card>
@@ -285,7 +321,7 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                 trend={{
                   value: metrics.placementRate,
                   label: "placement rate",
-                  isPositive: metrics.placementRate > 70
+                  isPositive: metrics.placementRate > 70,
                 }}
               />
               <MetricCard
@@ -296,7 +332,11 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
               />
               <MetricCard
                 title="Avg. CGPA"
-                value={metrics.averageCGPA > 0 ? metrics.averageCGPA.toFixed(2) : 'N/A'}
+                value={
+                  metrics.averageCGPA > 0
+                    ? metrics.averageCGPA.toFixed(2)
+                    : "N/A"
+                }
                 icon={Award}
                 description="Academic performance"
               />
@@ -308,7 +348,7 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                 trend={{
                   value: metrics.internshipRate,
                   label: "with experience",
-                  isPositive: metrics.internshipRate > 50
+                  isPositive: metrics.internshipRate > 50,
                 }}
               />
             </div>

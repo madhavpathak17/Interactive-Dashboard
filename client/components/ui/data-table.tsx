@@ -13,17 +13,17 @@ interface DataTableProps {
   className?: string;
 }
 
-export function DataTable({ 
-  data, 
-  title = "Data Table", 
-  searchable = true, 
+export function DataTable({
+  data,
+  title = "Data Table",
+  searchable = true,
   pageSize = 10,
-  className 
+  className,
 }: DataTableProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState<{
     key: string;
-    direction: 'asc' | 'desc';
+    direction: "asc" | "desc";
   } | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -35,7 +35,8 @@ export function DataTable({
         </CardHeader>
         <CardContent>
           <div className="text-center py-8 text-muted-foreground">
-            No data available. Please upload a CSV file to view student placement records.
+            No data available. Please upload a CSV file to view student
+            placement records.
           </div>
         </CardContent>
       </Card>
@@ -47,10 +48,10 @@ export function DataTable({
   // Filter and sort data
   let filteredData = data;
   if (searchTerm) {
-    filteredData = data.filter(row =>
-      Object.values(row).some(value =>
-        value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    filteredData = data.filter((row) =>
+      Object.values(row).some((value) =>
+        value?.toString().toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
     );
   }
 
@@ -58,11 +59,11 @@ export function DataTable({
     filteredData = [...filteredData].sort((a, b) => {
       const aValue = a[sortConfig.key];
       const bValue = b[sortConfig.key];
-      
+
       if (aValue === bValue) return 0;
-      
+
       const comparison = aValue < bValue ? -1 : 1;
-      return sortConfig.direction === 'asc' ? comparison : -comparison;
+      return sortConfig.direction === "asc" ? comparison : -comparison;
     });
   }
 
@@ -72,22 +73,24 @@ export function DataTable({
   const paginatedData = filteredData.slice(startIndex, startIndex + pageSize);
 
   const handleSort = (columnKey: string) => {
-    setSortConfig(current => {
+    setSortConfig((current) => {
       if (current?.key === columnKey) {
         return {
           key: columnKey,
-          direction: current.direction === 'asc' ? 'desc' : 'asc'
+          direction: current.direction === "asc" ? "desc" : "asc",
         };
       }
-      return { key: columnKey, direction: 'asc' };
+      return { key: columnKey, direction: "asc" };
     });
   };
 
   const SortIcon = ({ columnKey }: { columnKey: string }) => {
     if (sortConfig?.key !== columnKey) return null;
-    return sortConfig.direction === 'asc' 
-      ? <ChevronUp className="h-4 w-4" />
-      : <ChevronDown className="h-4 w-4" />;
+    return sortConfig.direction === "asc" ? (
+      <ChevronUp className="h-4 w-4" />
+    ) : (
+      <ChevronDown className="h-4 w-4" />
+    );
   };
 
   return (
@@ -120,7 +123,9 @@ export function DataTable({
                     onClick={() => handleSort(column)}
                   >
                     <div className="flex items-center space-x-1">
-                      <span className="capitalize">{column.replace(/_/g, ' ')}</span>
+                      <span className="capitalize">
+                        {column.replace(/_/g, " ")}
+                      </span>
                       <SortIcon columnKey={column} />
                     </div>
                   </th>
@@ -129,13 +134,13 @@ export function DataTable({
             </thead>
             <tbody>
               {paginatedData.map((row, index) => (
-                <tr 
-                  key={index} 
+                <tr
+                  key={index}
                   className="border-b border-border hover:bg-accent/50 transition-colors"
                 >
                   {columns.map((column) => (
                     <td key={column} className="p-3 text-sm">
-                      {row[column]?.toString() || '-'}
+                      {row[column]?.toString() || "-"}
                     </td>
                   ))}
                 </tr>
@@ -143,17 +148,19 @@ export function DataTable({
             </tbody>
           </table>
         </div>
-        
+
         {totalPages > 1 && (
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-6 space-y-4 sm:space-y-0">
             <div className="text-sm text-muted-foreground text-center sm:text-left">
-              Showing {startIndex + 1} to {Math.min(startIndex + pageSize, filteredData.length)} of {filteredData.length} records
+              Showing {startIndex + 1} to{" "}
+              {Math.min(startIndex + pageSize, filteredData.length)} of{" "}
+              {filteredData.length} records
             </div>
             <div className="flex justify-center space-x-2">
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
               >
                 Previous
@@ -161,7 +168,9 @@ export function DataTable({
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
                 disabled={currentPage === totalPages}
               >
                 Next
