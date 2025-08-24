@@ -188,11 +188,11 @@ STU008,88,C+,6.8,Below Average,No,50,Poor,0,Not Placed`;
                   </div>
                 </div>
                 <h2 className="text-2xl font-semibold mb-4">
-                  Welcome to Your Placement Analytics Hub
+                  Academic Placement Analytics Dashboard
                 </h2>
                 <p className="text-muted-foreground mb-8">
-                  Upload your student placement data CSV file to unlock powerful insights, 
-                  interactive visualizations, and AI-powered recommendations to improve placement outcomes.
+                  Analyze student academic performance, CGPA trends, internship impact, and placement outcomes
+                  with AI-powered insights to enhance educational strategies and career guidance.
                 </p>
               </div>
             </div>
