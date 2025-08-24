@@ -264,16 +264,21 @@ Frank Garcia,Mechanical,7.9,Mahindra,82000,Placed,Male,2024`;
                 description="Overall success rate"
               />
               <MetricCard
-                title="Avg. Package"
-                value={metrics.averageSalary > 0 ? `₹${(metrics.averageSalary / 100000).toFixed(1)}L` : 'N/A'}
+                title="Avg. CGPA"
+                value={metrics.averageCGPA > 0 ? metrics.averageCGPA.toFixed(2) : 'N/A'}
                 icon={Award}
-                description="Annual package"
+                description="Academic performance"
               />
               <MetricCard
-                title="Companies"
-                value={metrics.topCompanies.toLocaleString()}
+                title="With Internship"
+                value={`${metrics.internshipRate.toFixed(1)}%`}
                 icon={Building}
-                description="Recruiting partners"
+                description="Have internship experience"
+                trend={{
+                  value: metrics.internshipRate,
+                  label: "with experience",
+                  isPositive: metrics.internshipRate > 50
+                }}
               />
             </div>
 
