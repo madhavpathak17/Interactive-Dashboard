@@ -34,59 +34,59 @@ export default function Index() {
         totalStudents: 0,
         placedStudents: 0,
         placementRate: 0,
-        averageSalary: 0,
-        topCompanies: 0
+        averageCGPA: 0,
+        withInternship: 0,
+        internshipRate: 0
       };
     }
 
     const totalStudents = placementData.length;
-    
-    // Try to find placed students based on common column names
+
+    // Find placed students - check for Placement column
     const placedStudents = placementData.filter(student => {
-      const status = student.Status || student.Placement_Status || student.Placed || student.Company;
-      return status && status.toString().toLowerCase() !== 'not placed' && status.toString().toLowerCase() !== 'no' && status.toString().trim() !== '';
+      const placement = student.Placement || student.Placed || student.Status;
+      return placement && (
+        placement.toString().toLowerCase() === 'placed' ||
+        placement.toString().toLowerCase() === 'yes' ||
+        placement.toString() === '1'
+      );
     }).length;
 
     const placementRate = totalStudents > 0 ? (placedStudents / totalStudents) * 100 : 0;
 
-    // Calculate average salary
-    const salaryFields = ['Salary', 'Package', 'CTC', 'Annual_Package', 'Offer_Amount'];
-    let totalSalary = 0;
-    let salaryCount = 0;
+    // Calculate average CGPA
+    let totalCGPA = 0;
+    let cgpaCount = 0;
 
     placementData.forEach(student => {
-      for (const field of salaryFields) {
-        const salary = student[field];
-        if (salary && !isNaN(parseFloat(salary.toString()))) {
-          totalSalary += parseFloat(salary.toString());
-          salaryCount++;
-          break; // Only count one salary per student
-        }
+      const cgpa = student.CGPA || student.cgpa;
+      if (cgpa && !isNaN(parseFloat(cgpa.toString()))) {
+        totalCGPA += parseFloat(cgpa.toString());
+        cgpaCount++;
       }
     });
 
-    const averageSalary = salaryCount > 0 ? totalSalary / salaryCount : 0;
+    const averageCGPA = cgpaCount > 0 ? totalCGPA / cgpaCount : 0;
 
-    // Count unique companies
-    const companyFields = ['Company', 'Employer', 'Organization', 'Company_Name'];
-    const companies = new Set();
-    
-    placementData.forEach(student => {
-      for (const field of companyFields) {
-        const company = student[field];
-        if (company && company.toString().trim() !== '' && company.toString().toLowerCase() !== 'not placed') {
-          companies.add(company.toString().trim());
-          break;
-        }
-      }
-    });
+    // Count students with internship experience
+    const withInternship = placementData.filter(student => {
+      const internship = student['Internship Experience'] || student.Internship || student.internship;
+      return internship && (
+        internship.toString().toLowerCase() === 'yes' ||
+        internship.toString() === '1' ||
+        parseFloat(internship.toString()) > 0
+      );
+    }).length;
+
+    const internshipRate = totalStudents > 0 ? (withInternship / totalStudents) * 100 : 0;
 
     return {
       totalStudents,
       placedStudents,
       placementRate,
-      averageSalary,
-      topCompanies: companies.size
+      averageCGPA,
+      withInternship,
+      internshipRate
     };
   }, [placementData]);
 
