@@ -299,16 +299,16 @@ Frank Garcia,Mechanical,7.9,Mahindra,82000,Placed,Male,2024`;
                   <DashboardChart
                     data={placementData}
                     type="bar"
-                    title="Placements by Department"
+                    title="Placements by Academic Performance"
                     dataKey="value"
-                    nameKey={chartConfig.departmentKey}
+                    nameKey={chartConfig.academicPerfKey}
                   />
                   <DashboardChart
-                    data={placementData.filter(item => item[chartConfig.companyKey] && item[chartConfig.companyKey].toString().toLowerCase() !== 'not placed')}
+                    data={placementData}
                     type="pie"
-                    title="Top Recruiting Companies"
+                    title="Students with Internship Experience"
                     dataKey="value"
-                    nameKey={chartConfig.companyKey}
+                    nameKey={chartConfig.internshipKey}
                   />
                 </>
               )}
